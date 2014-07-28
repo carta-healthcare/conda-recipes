@@ -1,0 +1,76 @@
+package:
+  name: apache-libcloud
+  version: !!str 0.14.1
+
+source:
+  fn: apache-libcloud-0.14.1.tar.gz
+  url: https://pypi.python.org/packages/source/a/apache-libcloud/apache-libcloud-0.14.1.tar.gz
+  md5: 0a645fcf3d8615ff1065f4ff9f663af4
+#  patches:
+   # List any patch files here
+   # - fix.patch
+
+# build:
+  #preserve_egg_dir: True
+  #entry_points:
+    # Put any entry points (scripts to be generated automatically) here. The
+    # syntax is module:function.  For example
+    #
+    # - apache-libcloud = apache-libcloud:main
+    #
+    # Would create an entry point called apache-libcloud that calls apache-libcloud.main()
+
+
+  # If this is a new build for the same version, increment the build
+  # number. If you do not include this key, it defaults to 0.
+  # number: 1
+
+requirements:
+  build:
+    - python
+    - setuptools
+
+  run:
+    - python
+
+test:
+  # Python imports
+  imports:
+    - libcloud
+    - libcloud.common
+    - libcloud.compute
+    - libcloud.compute.drivers
+    - libcloud.dns
+    - libcloud.dns.drivers
+    - libcloud.loadbalancer
+    - libcloud.loadbalancer.drivers
+    - libcloud.storage
+    - libcloud.storage.drivers
+    - libcloud.test
+    - libcloud.test.common
+    - libcloud.test.compute
+    - libcloud.test.dns
+    - libcloud.test.loadbalancer
+    - libcloud.test.storage
+    - libcloud.utils
+
+  #commands:
+    # You can put test commands to be run here.  Use this to test that the
+    # entry points work.
+
+
+  # You can also put a file called run_test.py in the recipe that will be run
+  # at test time.
+
+  # requires:
+    # Put any additional test requirements here.  For example
+    # - nose
+
+about:
+  home: http://libcloud.apache.org/
+  license:  Apache Software License
+  summary: 'A standard Python library that abstracts away differences among multiple cloud provider APIs. For more information and documentation, please see http://libcloud.apache.org'
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml
