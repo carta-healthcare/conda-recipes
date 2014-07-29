@@ -28,9 +28,11 @@ source:
 requirements:
   build:
     - python
+    - graphviz
 
   run:
     - python
+    - graphviz
 
 test:
   # Python imports

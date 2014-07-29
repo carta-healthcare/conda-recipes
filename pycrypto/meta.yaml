@@ -55,7 +55,6 @@ test:
     - Crypto.SelfTest.Util
     - Crypto.Signature
     - Crypto.Util
-    - pycrypto
 
   #commands:
     # You can put test commands to be run here.  Use this to test that the
