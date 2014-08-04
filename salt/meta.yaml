@@ -73,7 +73,6 @@ test:
     - salt.runners
     - salt.search
     - salt.states
-    - salt.templates # [linux]
     - salt.tops
     - salt.transport
     - salt.utils
