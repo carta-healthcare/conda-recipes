@@ -1,11 +1,11 @@
 package:
   name: salt
-  version: !!str 2014.1.5
+  version: !!str 2014.1.7
 
 source:
-  fn: salt-2014.1.5.tar.gz
-  url: https://pypi.python.org/packages/source/s/salt/salt-2014.1.5.tar.gz
-  md5: 3be2dd48d620e2a6f8ea4a9b61e28a36
+  fn: salt-2014.1.7.tar.gz
+  url: https://pypi.python.org/packages/source/s/salt/salt-2014.1.7.tar.gz
+  md5: 9ab50536f46389983888771d4e735d56
 #  patches:
    # List any patch files here
    # - fix.patch
@@ -73,7 +73,7 @@ test:
     - salt.runners
     - salt.search
     - salt.states
-    - salt.templates
+    - salt.templates # [linux]
     - salt.tops
     - salt.transport
     - salt.utils
