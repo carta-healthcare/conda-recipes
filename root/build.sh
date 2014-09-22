@@ -47,19 +47,17 @@ LinuxInstallation() {
 }
 
 MacInstallation() {
-    export MACOSX_DEPLOYMENT_TARGET=10.7
-    export CFLAGS="-Wall -g -m64 -pipe -O2 -march=x86-64 -fPIC"
-    export CXXLAGS="${CFLAGS}"
+    export MACOSX_DEPLOYMENT_TARGET=10.9
     export CPPFLAGS="-I${PREFIX}/include"
     export LDFLAGS="-L${PREFIX}/lib"
     export CPATH="${PREFIX}/include"
+    export LIBPATH="${PREFIX}/lib"
 
     chmod +x configure;
 
-    env
-    env | wc -l
-    ./configure macosx64 --all --enable-builtin-glew --enable-builtin-freetype --prefix=${PREFIX} --etcdir=${PREFIX}/etc/root \
-        --with-qt-incdir=${PREFIX}/include --with-qt-libdir=${PREFIX}/lib || return 1
+    ./configure macosx64 --all --enable-builtin-glew --enable-cxx11 --enable-rpath --prefix=${PREFIX} --etcdir=${PREFIX}/etc/root \
+        --with-fftw3-incdir=${PREFIX}/include --with-fftw3-libdir=${PREFIX}/lib || return 1
+        #--with-qt-incdir=${PREFIX}/include --with-qt-libdir=${PREFIX}/lib \
  
     make || return 1;
     make install || return 1;
