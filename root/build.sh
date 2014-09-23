@@ -62,6 +62,10 @@ MacInstallation() {
     make || return 1;
     make install || return 1;
 
+    # Make sure root is on the python path
+    SITEPACKAGES=$($PYTHON -c "import site; print site.getsitepackages()[0]")
+    echo $PREFIX/lib/root > $SITEPACKAGES/cern-root.pth
+
     return 0;
 
 }
