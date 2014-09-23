@@ -56,10 +56,12 @@ MacInstallation() {
     chmod +x configure;
 
     ./configure macosx64 --all --enable-builtin-glew --enable-cxx11 --enable-rpath --prefix=${PREFIX} --etcdir=${PREFIX}/etc/root \
-        --with-fftw3-incdir=${PREFIX}/include --with-fftw3-libdir=${PREFIX}/lib || return 1
-        #--with-qt-incdir=${PREFIX}/include --with-qt-libdir=${PREFIX}/lib \
+        --with-fftw3-incdir=${PREFIX}/include --with-fftw3-libdir=${PREFIX}/lib \
+        --with-gviz-incdir=${PREFIX}/include --with-gviz-libdir=${PREFIX}/lib \
+        || return 1
+        #--with-qt-incdir=${PREFIX}/include --with-qt-libdir=${PREFIX}/lib || return 1
  
-    make || return 1;
+    make -j2 || return 1;
     make install || return 1;
 
     # Make sure root is on the python path

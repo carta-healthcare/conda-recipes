@@ -46,6 +46,8 @@ requirements:
         - qt
         - sqlite
         - fftw
+        - graphviz
+        - pcre
 
     run:
         - python
@@ -53,6 +55,8 @@ requirements:
         - qt
         - sqlite
         - fftw
+        - graphviz
+        - pcre
 
 test:
     imports:
