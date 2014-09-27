@@ -1,0 +1,2 @@
+
+scons install --prefix=$PREFIX

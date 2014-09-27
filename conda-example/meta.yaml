@@ -1,0 +1,24 @@
+
+package:
+  name: conda-example
+  version: !!str 0.1
+
+source:
+   git_url: https://github.com/mhworth/conda-example-package.git
+
+requirements:
+   # No requirements!
+   # Note you need to have scons installed
+   build:
+   
+   run:
+
+test:
+   commands:
+      - conda-example
+
+
+about:
+   home: http://github.com/mhworth/conda-example-package
+   license: Public Domain
+   summary: 'Package to demonstrate conda functionality'
