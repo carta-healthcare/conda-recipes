@@ -4,12 +4,13 @@ package:
 
 source:
   git_url: https://github.com/cloudera/impyla
+  git_tag: 9fa63cb2b3de0c0218d89a
 #  patches:
    # List any patch files here
    # - fix.patch
 
 build:
-  number: 1
+  number: 2
   #preserve_egg_dir: True
   #entry_points:
     # Put any entry points (scripts to be generated automatically) here. The
