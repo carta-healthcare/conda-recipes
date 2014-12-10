@@ -22,7 +22,7 @@ build:
 
   # If this is a new build for the same version, increment the build
   # number. If you do not include this key, it defaults to 0.
-  # number: 1
+  number: 2
 
 requirements:
   build:
@@ -43,30 +43,21 @@ test:
     - rootpy
     - rootpy.batch
     - rootpy.compiled
-    - rootpy.data
     - rootpy.extern
     - rootpy.extern.byteplay
     - rootpy.extern.hep
     - rootpy.extern.lockfile
     - rootpy.extern.progressbar
     - rootpy.extern.tabulartext
-    - rootpy.extern.tests
     - rootpy.interactive
     - rootpy.io
     - rootpy.logger
-    - rootpy.math
-    - rootpy.math.linalg
-    - rootpy.math.physics
-    - rootpy.math.stats
     - rootpy.memory
     - rootpy.plotting
     - rootpy.plotting.style
     - rootpy.plotting.style.atlas
     - rootpy.plotting.style.tests
-    - rootpy.testdata
-    - rootpy.tests
     - rootpy.tree
-    - rootpy.util
 
   #commands:
     # You can put test commands to be run here.  Use this to test that the
