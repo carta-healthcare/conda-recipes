@@ -1,5 +1,5 @@
 #!/bin/bash
-conda metapackage mhworth-webapp 1.0 --dependencies 'requests =2.2.1' \
+conda metapackage mhworth-webapp 1.0 --no-binstar-upload --dependencies 'requests =2.2.1' \
 'simplejson =2.6.2' \
 'funcy =1.1' \
 'xlsxwriter =0.5.2' \
@@ -25,7 +25,7 @@ conda metapackage mhworth-webapp 1.0 --dependencies 'requests =2.2.1' \
 'ipython-notebook' \
 'parsedatetime =1.4' \
 'python-dateutil =2.2' \
-'PyYAML =3.11' \
+'pyyaml =3.11' \
 'ipaddr =2.1.11' \
 'scipy' \
 'pandas' \
@@ -39,7 +39,7 @@ conda metapackage mhworth-webapp 1.0 --dependencies 'requests =2.2.1' \
 'nose' \
 'nose-cov' \
 'pylint' \
-'MySQL-python =1.2.5' \
+'mysql-python =1.2.5' \
 'sqlalchemy =0.9.7' \
 'futures =2.1.6' \
 'django =1.7.3' \
