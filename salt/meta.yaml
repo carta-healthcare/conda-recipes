@@ -1,11 +1,11 @@
 package:
   name: salt
-  version: !!str 2014.1.7
+  version: !!str 2014.7.2
 
 source:
-  fn: salt-2014.1.7.tar.gz
-  url: https://pypi.python.org/packages/source/s/salt/salt-2014.1.7.tar.gz
-  md5: 9ab50536f46389983888771d4e735d56
+  fn: salt-2014.7.2.tar.gz
+  url: https://pypi.python.org/packages/source/s/salt/salt-2014.7.2.tar.gz
+  md5: 64607e73055626509c59e51fe6feee88
 #  patches:
    # List any patch files here
    # - fix.patch
@@ -36,6 +36,7 @@ requirements:
     - pyzmq >=2.2.0
     - markupsafe
     - apache-libcloud
+    - requests
 
   run:
     - python
@@ -47,6 +48,7 @@ requirements:
     - pyzmq >=2.2.0
     - markupsafe
     - apache-libcloud
+    - requests
 
 test:
   # Python imports
