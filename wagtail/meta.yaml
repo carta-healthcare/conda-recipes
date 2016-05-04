@@ -1,0 +1,115 @@
+package:
+  name: wagtail
+  version: "1.4.3"
+
+source:
+  fn: wagtail-1.4.3.tar.gz
+  url: https://pypi.python.org/packages/a1/5c/bafee22df1d719a3d4115cfad952f3545f810b9437732354f77396f52fa8/wagtail-1.4.3.tar.gz
+  md5: a5d080320ce2c314b23697cef3c1e638
+#  patches:
+   # List any patch files here
+   # - fix.patch
+
+build:
+  # noarch_python: True
+  preserve_egg_dir: True
+  entry_points:
+    # Put any entry points (scripts to be generated automatically) here. The
+    # syntax is module:function.  For example
+    #
+    # - wagtail = wagtail:main
+    #
+    # Would create an entry point called wagtail that calls wagtail.main()
+
+    - wagtail=wagtail.bin.wagtail:main
+
+  # If this is a new build for the same version, increment the build
+  # number. If you do not include this key, it defaults to 0.
+  # number: 1
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - django >=1.8.1,<1.10
+    - django-modelcluster >=1.1,<1.2
+    - django-taggit >=0.18,<0.19
+    - django-treebeard >=3.0,<5.0
+    - djangorestframework >=3.1.3
+    - pillow >=2.6.1
+    - beautifulsoup4 >=4.3.2
+    - html5lib >=0.999,<1
+    - unidecode >=0.04.14
+    - willow >=0.3b4,<0.4
+
+  run:
+    - python
+    - setuptools
+    - django >=1.8.1,<1.10
+    - django-modelcluster >=1.1,<1.2
+    - django-taggit >=0.18,<0.19
+    - django-treebeard >=3.0,<5.0
+    - djangorestframework >=3.1.3
+    - pillow >=2.6.1
+    - beautifulsoup4 >=4.3.2
+    - html5lib >=0.999,<1
+    - unidecode >=0.04.14
+    - willow >=0.3b4,<0.4
+
+test:
+  # Python imports
+  imports:
+    - wagtail
+    - wagtail.api
+    - wagtail.api.v2
+    - wagtail.api.v2.tests
+    - wagtail.bin
+    - wagtail.contrib
+    - wagtail.contrib.settings
+    - wagtail.contrib.settings.templatetags
+    - wagtail.contrib.settings.tests
+    - wagtail.contrib.wagtailapi
+    - wagtail.contrib.wagtailapi.tests
+    - wagtail.contrib.wagtailfrontendcache
+    - wagtail.contrib.wagtailmedusa
+    - wagtail.contrib.wagtailroutablepage
+    - wagtail.contrib.wagtailroutablepage.templatetags
+    - wagtail.contrib.wagtailsearchpromotions
+    - wagtail.contrib.wagtailsearchpromotions.migrations
+    - wagtail.contrib.wagtailsearchpromotions.templatetags
+    - wagtail.contrib.wagtailsitemaps
+    - wagtail.contrib.wagtailstyleguide
+    - wagtail.utils
+    - wagtail.wagtailadmin
+    - wagtail.wagtailcore
+    - wagtail.wagtaildocs
+    - wagtail.wagtailembeds
+    - wagtail.wagtailforms
+    - wagtail.wagtailimages
+    - wagtail.wagtailredirects
+    - wagtail.wagtailsearch
+    - wagtail.wagtailsites
+    - wagtail.wagtailsnippets
+    - wagtail.wagtailusers
+
+  commands:
+    # You can put test commands to be run here.  Use this to test that the
+    # entry points work.
+
+    - wagtail --help
+
+  # You can also put a file called run_test.py in the recipe that will be run
+  # at test time.
+
+  # requires:
+    # Put any additional test requirements here.  For example
+    # - nose
+
+about:
+  home: http://wagtail.io/
+  license: BSD License
+  summary: 'A Django content management system focused on flexibility and user experience'
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml

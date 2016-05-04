@@ -1,11 +1,11 @@
 package:
-  name: djangorestframework
-  version: "3.3.3"
+  name: django-modelcluster
+  version: "2.0"
 
 source:
-  fn: djangorestframework-3.3.3.tar.gz
-  url: https://pypi.python.org/packages/23/9c/94812ea7a7bd95af5439ab95795c03b6757a0cad30e751320f80799c8038/djangorestframework-3.3.3.tar.gz
-  md5: 6f5ee9646e7fa87dad4385d3c7e7678d
+  fn: django-modelcluster-2.0.tar.gz
+  url: https://pypi.python.org/packages/8f/d9/c64f188e796ca2614fd6d95e70eb135c96ffe806cc34b80a600dee68468d/django-modelcluster-2.0.tar.gz
+  md5: 8980b6c8e405b9ee3ba871b3ebe7b8f8
 #  patches:
    # List any patch files here
    # - fix.patch
@@ -17,9 +17,9 @@ source:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - djangorestframework = djangorestframework:main
+    # - django-modelcluster = django-modelcluster:main
     #
-    # Would create an entry point called djangorestframework that calls djangorestframework.main()
+    # Would create an entry point called django-modelcluster that calls django-modelcluster.main()
 
 
   # If this is a new build for the same version, increment the build
@@ -30,18 +30,17 @@ requirements:
   build:
     - python
     - setuptools
+    - pytz >=2015.2
 
   run:
     - python
+    - pytz >=2015.2
 
 test:
   # Python imports
   imports:
-    - rest_framework
-    - rest_framework.authtoken
-    - rest_framework.authtoken.migrations
-    - rest_framework.templatetags
-    - rest_framework.utils
+    - modelcluster
+    - modelcluster.contrib
 
   # commands:
     # You can put test commands to be run here.  Use this to test that the
@@ -56,9 +55,9 @@ test:
     # - nose
 
 about:
-  home: http://www.django-rest-framework.org
+  home: https://github.com/torchbox/django-modelcluster
   license: BSD License
-  summary: 'Web APIs for Django, made easy.'
+  summary: "Django extension to allow working with 'clusters' of models as a single unit, independently of the database"
 
 # See
 # http://docs.continuum.io/conda/build.html for

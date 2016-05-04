@@ -1,11 +1,11 @@
 package:
-  name: djangorestframework
-  version: "3.3.3"
+  name: willow
+  version: "0.3"
 
 source:
-  fn: djangorestframework-3.3.3.tar.gz
-  url: https://pypi.python.org/packages/23/9c/94812ea7a7bd95af5439ab95795c03b6757a0cad30e751320f80799c8038/djangorestframework-3.3.3.tar.gz
-  md5: 6f5ee9646e7fa87dad4385d3c7e7678d
+  fn: Willow-0.3.tar.gz
+  url: https://pypi.python.org/packages/cb/58/976c9b52b7ea52c81fc7dc02cfda1b7294b6dc243ceb46227709b3ed5c47/Willow-0.3.tar.gz
+  md5: 259aa2e66344a2818eb676f828d9b2e1
 #  patches:
    # List any patch files here
    # - fix.patch
@@ -17,9 +17,9 @@ source:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - djangorestframework = djangorestframework:main
+    # - willow = willow:main
     #
-    # Would create an entry point called djangorestframework that calls djangorestframework.main()
+    # Would create an entry point called willow that calls willow.main()
 
 
   # If this is a new build for the same version, increment the build
@@ -37,11 +37,10 @@ requirements:
 test:
   # Python imports
   imports:
-    - rest_framework
-    - rest_framework.authtoken
-    - rest_framework.authtoken.migrations
-    - rest_framework.templatetags
-    - rest_framework.utils
+    - tests
+    - willow
+    - willow.plugins
+    - willow.utils
 
   # commands:
     # You can put test commands to be run here.  Use this to test that the
@@ -56,9 +55,9 @@ test:
     # - nose
 
 about:
-  home: http://www.django-rest-framework.org
+  home: 
   license: BSD License
-  summary: 'Web APIs for Django, made easy.'
+  summary: 'A Python image library that sits on top of Pillow, Wand and OpenCV'
 
 # See
 # http://docs.continuum.io/conda/build.html for

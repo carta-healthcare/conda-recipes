@@ -1,16 +1,19 @@
 package:
   name: arrow
-  version: !!str 0.4.4.1
+  version: "0.7.0"
 
 source:
-   git_url: https://github.com/deepfield/arrow.git
+  fn: arrow-0.7.0.tar.gz
+  url: https://pypi.python.org/packages/57/be/db25f7bd8f0e40cd57d80497c0cc298b50e24b3160f5bdf1a5ac4b2e448a/arrow-0.7.0.tar.gz
+  md5: 1597108362c5fa675dc5e0524ece4451
 #  patches:
    # List any patch files here
    # - fix.patch
 
 # build:
-  #preserve_egg_dir: True
-  #entry_points:
+  # noarch_python: True
+  # preserve_egg_dir: True
+  # entry_points:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
@@ -38,7 +41,7 @@ test:
   imports:
     - arrow
 
-  #commands:
+  # commands:
     # You can put test commands to be run here.  Use this to test that the
     # entry points work.
 
@@ -51,8 +54,8 @@ test:
     # - nose
 
 about:
-  home: http://crsmithdev.com/arrow
-  license: Apache 2.0
+  home: https://github.com/crsmithdev/arrow/
+  license: Apache Software License
   summary: 'Better dates and times for Python'
 
 # See

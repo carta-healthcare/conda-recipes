@@ -1,11 +1,11 @@
 package:
-  name: djangorestframework
-  version: "3.3.3"
+  name: django-treebeard
+  version: "4.0.1"
 
 source:
-  fn: djangorestframework-3.3.3.tar.gz
-  url: https://pypi.python.org/packages/23/9c/94812ea7a7bd95af5439ab95795c03b6757a0cad30e751320f80799c8038/djangorestframework-3.3.3.tar.gz
-  md5: 6f5ee9646e7fa87dad4385d3c7e7678d
+  fn: django-treebeard-4.0.1.tar.gz
+  url: https://pypi.python.org/packages/c5/a2/0df0c2e11113a68d3ff6438e497382ad738aa2664e32aabe044a0266a0f8/django-treebeard-4.0.1.tar.gz
+  md5: a96c72c186d7aea7142fe5673b96b3be
 #  patches:
    # List any patch files here
    # - fix.patch
@@ -17,9 +17,9 @@ source:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - djangorestframework = djangorestframework:main
+    # - django-treebeard = django-treebeard:main
     #
-    # Would create an entry point called djangorestframework that calls djangorestframework.main()
+    # Would create an entry point called django-treebeard that calls django-treebeard.main()
 
 
   # If this is a new build for the same version, increment the build
@@ -30,18 +30,18 @@ requirements:
   build:
     - python
     - setuptools
+    - django >=1.7
 
   run:
     - python
+    - django >=1.7
 
 test:
   # Python imports
   imports:
-    - rest_framework
-    - rest_framework.authtoken
-    - rest_framework.authtoken.migrations
-    - rest_framework.templatetags
-    - rest_framework.utils
+    - treebeard
+    - treebeard.templatetags
+    - treebeard.tests
 
   # commands:
     # You can put test commands to be run here.  Use this to test that the
@@ -51,14 +51,15 @@ test:
   # You can also put a file called run_test.py in the recipe that will be run
   # at test time.
 
-  # requires:
+  requires:
+    - pytest
     # Put any additional test requirements here.  For example
     # - nose
 
 about:
-  home: http://www.django-rest-framework.org
-  license: BSD License
-  summary: 'Web APIs for Django, made easy.'
+  home: https://tabo.pe/projects/django-treebeard/
+  license: Apache Software License
+  summary: 'Efficient tree implementations for Django 1.7+'
 
 # See
 # http://docs.continuum.io/conda/build.html for
