@@ -1,0 +1,19 @@
+package:
+    name: libgpg-error
+    version: "1.27"
+
+source:
+    fn: libgpg-error-1.27.tar.bz2
+    url: https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.27.tar.bz2
+    md5: 5217ef3e76a7275a2a3b569a12ddc989
+
+requirements:
+    build:
+
+# Note: tests are run when building the package, they are not accessible
+# in the installed package.
+
+about:
+    home: https://gnupg.org/software/libgcrypt/index.html
+    license: GNU Lesser General Public License (LGPLv2.1+)
+    summary: 'Crypo Errors'

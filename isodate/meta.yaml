@@ -1,11 +1,11 @@
 package:
-  name: arrow
-  version: "0.10.0"
+  name: isodate
+  version: "0.5.4"
 
 source:
-  fn: arrow-0.10.0.tar.gz
-  url: https://pypi.python.org/packages/54/db/76459c4dd3561bbe682619a5c576ff30c42e37c2e01900ed30a501957150/arrow-0.10.0.tar.gz
-  md5: 5d00592200050ad58284d45a4ee147c6
+  fn: isodate-0.5.4.tar.gz
+  url: https://pypi.python.org/packages/f4/5b/fe03d46ced80639b7be9285492dc8ce069b841c0cebe5baacdd9b090b164/isodate-0.5.4.tar.gz
+  md5: 9da3ea2af54a6261d854e73d2266030e
 #  patches:
    # List any patch files here
    # - fix.patch
@@ -17,9 +17,9 @@ source:
     # Put any entry points (scripts to be generated automatically) here. The
     # syntax is module:function.  For example
     #
-    # - arrow = arrow:main
+    # - isodate = isodate:main
     #
-    # Would create an entry point called arrow that calls arrow.main()
+    # Would create an entry point called isodate that calls isodate.main()
 
 
   # If this is a new build for the same version, increment the build
@@ -30,16 +30,15 @@ requirements:
   build:
     - python
     - setuptools
-    - python-dateutil
 
   run:
-    - python 
-    - python-dateutil
+    - python
 
 test:
   # Python imports
   imports:
-    - arrow
+    - isodate
+    - isodate.tests
 
   # commands:
     # You can put test commands to be run here.  Use this to test that the
@@ -54,10 +53,10 @@ test:
     # - nose
 
 about:
-  home: https://github.com/crsmithdev/arrow/
-  license: Apache Software License
-  summary: 'Better dates and times for Python'
-  license_family: APACHE
+  home: http://cheeseshop.python.org/pypi/isodate
+  license: BSD License
+  summary: 'An ISO 8601 date/time/duration parser and formatter'
+  license_family: BSD
 
 # See
 # http://docs.continuum.io/conda/build.html for
