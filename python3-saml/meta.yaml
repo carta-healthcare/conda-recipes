@@ -1,0 +1,71 @@
+package:
+  name: python3-saml
+  version: "1.2.6"
+
+source:
+  fn: python3-saml-1.2.6.tar.gz
+  url: https://pypi.python.org/packages/77/e5/5eda81328efd5dca0629706a881604a990af4bd3f6ce361bdff60d8bec5e/python3-saml-1.2.6.tar.gz
+  md5: 8c574e66b2be15f71a10c63e661925e1
+#  patches:
+   # List any patch files here
+   # - fix.patch
+
+# build:
+  # noarch_python: True
+  # preserve_egg_dir: True
+  # entry_points:
+    # Put any entry points (scripts to be generated automatically) here. The
+    # syntax is module:function.  For example
+    #
+    # - python3-saml = python3-saml:main
+    #
+    # Would create an entry point called python3-saml that calls python3-saml.main()
+
+
+  # If this is a new build for the same version, increment the build
+  # number. If you do not include this key, it defaults to 0.
+  # number: 1
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - isodate >=0.5.0
+    - xmlsec >=0.6.0
+    - defusedxml ==0.5.0
+    - libxmlsec1
+
+  run:
+    - python
+    - isodate >=0.5.0
+    - xmlsec >=0.6.0
+    - defusedxml ==0.5.0
+    - libxmlsec1
+
+test:
+  # Python imports
+  imports:
+    - onelogin
+    - onelogin.saml2
+
+  # commands:
+    # You can put test commands to be run here.  Use this to test that the
+    # entry points work.
+
+
+  # You can also put a file called run_test.py in the recipe that will be run
+  # at test time.
+
+  # requires:
+    # Put any additional test requirements here.  For example
+    # - nose
+
+about:
+  home: https://github.com/onelogin/python3-saml
+  license: MIT
+  summary: 'Onelogin Python Toolkit. Add SAML support to your Python software using this library'
+  license_family: MIT
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml
