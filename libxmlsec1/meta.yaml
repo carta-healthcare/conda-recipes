@@ -5,8 +5,8 @@ package:
 
 source:
     fn: xmlsec1-1.2.20.tar.gz
-    url: https://www.aleksey.com/xmlsec/download/xmlsec1-1.2.20.tar.gz
-    md5: ce12af00283eb90d9281956524250d6e
+    url: http://www.aleksey.com/xmlsec/download/xmlsec1-1.2.24.tar.gz
+    md5: 2f4944356b69ea14c18814d9248fbbd8
 
 requirements:
     build:
