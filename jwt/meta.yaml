@@ -1,0 +1,52 @@
+{% set name = "jwt" %}
+{% set version = "0.5.2" %}
+{% set file_ext = "tar.gz" %}
+{% set hash_type = "sha256" %}
+{% set hash_value = "41defa71646942069b84ec3be8f4aaee90fa3b996587bae52f030e74d38aee9e" %}
+
+package:
+  name: '{{ name|lower }}'
+  version: '{{ version }}'
+
+source:
+  fn: '{{ name }}-{{ version }}.{{ file_ext }}'
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.{{ file_ext }}
+  '{{ hash_type }}': '{{ hash_value }}'
+
+build:
+  number: 0
+  script: python setup.py install --single-version-externally-managed --record=record.txt
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - cryptography ==2.0.3
+  run:
+    - python
+    - cryptography ==2.0.3
+
+test:
+  imports:
+    - jwt
+
+about:
+  home: https://github.com/GehirnInc/python-jwt
+  license: MIT License
+  license_family: MIT
+  license_file: ''
+  summary: JSON Web Token library for Python 3.
+  description: ".. image:: https://travis-ci.org/GehirnInc/python-jwt.svg?branch=master\n    :target: https://travis-ci.org/GehirnInc/python-jwt\n.. image:: https://coveralls.io/repos/GehirnInc/python-jwt/badge.png?branch=master\n\
+    \    :target:  https://coveralls.io/r/GehirnInc/python-jwt?branch=master\n.. image:: https://badge.fury.io/py/jwt.svg?dummy\n    :target: http://badge.fury.io/py/jwt\n\npython-jwt\n==========\n\n*python-jwt*\
+    \ is a JSON Web Token (JWT) implementation in Python developed by `Gehirn Inc`_.\n\n\nExamples\n--------\n\n.. code-block:: python\n\n   import json\n\n   from jwt import (\n       JWT,\n       jwk_from_dict,\n\
+    \       jwk_from_pem,\n   )\n\n   message = {\n       'iss': 'https://example.com/',\n       'sub': 'yosida95',\n       'iat': 1485969205,\n       'exp': 1485972805,\n   }\n\n   with open('rsa_private_key.pem',\
+    \ 'rb') as fh:\n       signing_key = jwk_from_pem(fh.read())\n\n   jwt = JWT()\n   compact_jws = jwt.encode(message, signing_key, 'RS256')\n\n   with open('rsa_public_key.json', 'r') as fh:\n      \
+    \ verifying_key = jwk_from_dict(json.load(fh))\n\n   message_received = jwt.decode(compact_jws, verifying_key)\n\n   assert message == message_received\n\n\nInstallation\n------------\n\nYou can install\
+    \ python-jwt with pip.\n\n.. code-block:: shell\n\n   $ pip install jwt\n\n\nImplementation Details\n-------------------------\n\nSupported Algorithms\n~~~~~~~~~~~~~~~~~~~~\n\n- Unsecured\n\n  - none\n\
+    \n- Symmetric\n\n  - HS256\n\n  - HS384\n\n  - HS512\n\n- Asymmetric\n\n  - RS256\n\n  - RS384\n\n  - RS512\n\nSupported Python Versions\n~~~~~~~~~~~~~~~~~~~~~~~~~\n\n- Python 3.4\n\n- Python 3.5\n\n\
+      - Python 3.6\n\n\nLicense\n-------\npython-jwt is licensed under the Apache License version 2.  See ./LICENSE.rst.\n\n\n.. _Gehirn Inc: http://www.gehirn.co.jp/"
+  doc_url: ''
+  dev_url: ''
+
+extra:
+  recipe-maintainers: ''
