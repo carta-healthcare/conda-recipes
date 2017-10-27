@@ -58,6 +58,7 @@ class CondaBuildTask extends DefaultTask {
         println uploadCommand
         project.exec {
            commandLine uploadCommand
+           ignoreExitValue true
         }
     }
 }
@@ -76,6 +77,15 @@ task libxmlsec1(type: CondaBuildTask) {
 }
 libxmlsec1.dependsOn libgcrypt
 
+task defusedxml(type: CondaBuildTask) {
+  packageName = "defusedxml"
+}
+
+task xmlsec(type: CondaBuildTask) {
+  packageName = "xmlsec"
+}
+xmlsec.dependsOn libxmlsec1
+
 task python3Saml(type: CondaBuildTask) {
   packageName = "python3-saml"    
 }
@@ -86,3 +96,19 @@ task kafkaPython(type: CondaBuildTask) {
   packageName = "kafka-python"
 }
 
+task cryptography(type: CondaBuildTask) {
+  packageName = "cryptography"
+}
+
+task jwt(type: CondaBuildTask) {
+  packageName = "jwt"
+}
+//jwt.dependsOn cryptography
+
+task mysqlclient(type: CondaBuildTask) {
+  packageName = "mysqlclient"
+}
+
+task builder(type: CondaBuildTask) {
+  packageName = "builder"
+}
