@@ -1,0 +1,88 @@
+
+import java.util.concurrent.Callable
+import org.gradle.api.DefaultTask
+import org.gradle.api.tasks.TaskAction
+import org.gradle.api.tasks.InputFile
+import org.gradle.api.tasks.OutputFile
+
+class CondaBuildTask extends DefaultTask {
+//    @Input
+//    String greeting = 'hello from GreetingTask'
+    def packageName
+
+    @InputFile def metaYamlPath
+    @OutputFile def outputPath
+    def getOutputPath() {
+       if (this.outputPath instanceof Callable) {
+            this.outputPath = this.outputPath.call()
+        } else {
+            this.outputPath
+        }
+    }
+
+    def setPackageName(String name) {
+       this.packageName = name
+       this.metaYamlPath = project.file(name + "/" + "meta.yaml")
+
+       this.outputPath = {
+         def buildOutputCommand = ["conda", "build", "--output", "--python", "3.6.3", "--output-folder", this.outputDirectory, this.metaYamlPath]
+
+         def so = new ByteArrayOutputStream()
+         def outputExec = project.exec {
+             //commandLine buildCommand
+             commandLine buildOutputCommand
+            
+             standardOutput = so
+             println buildOutputCommand.join(" ")
+            
+         }
+         def outputPackagePath = so.toString().trim()
+         new File(outputPackagePath)
+      }
+    }
+
+    def outputDirectory = project.file("output")
+
+    @TaskAction
+    def build() {
+        def buildCommand = ["conda", "build", "--python", "3.6.3", "--output-folder", this.outputDirectory, this.metaYamlPath]
+        def uploadCommand = ["anaconda", "upload", "-u", "carta", this.outputPath]
+        println "Building ${this.packageName} from ${this.metaYamlPath} into ${this.outputDirectory}"
+        println "Package output path: ${this.outputPath}"
+        println buildCommand.join(" ")
+
+        project.exec {
+           commandLine buildCommand    
+        }
+
+        println uploadCommand
+        project.exec {
+           commandLine uploadCommand
+        }
+    }
+}
+
+task libgpgError(type: CondaBuildTask) {
+  packageName = "libgpg-error"
+}
+
+task libgcrypt(type: CondaBuildTask) {
+  packageName = "libgcrypt"
+}
+libgcrypt.dependsOn libgpgError
+
+task libxmlsec1(type: CondaBuildTask) {
+  packageName = "libxmlsec1"
+}
+libxmlsec1.dependsOn libgcrypt
+
+task python3Saml(type: CondaBuildTask) {
+  packageName = "python3-saml"    
+}
+
+python3Saml.dependsOn libxmlsec1
+
+task kafkaPython(type: CondaBuildTask) {
+  packageName = "kafka-python"
+}
+
