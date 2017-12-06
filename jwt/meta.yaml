@@ -1,6 +1,5 @@
 {% set name = "jwt" %}
 {% set version = "0.5.2" %}
-{% set file_ext = "tar.gz" %}
 {% set hash_type = "sha256" %}
 {% set hash_value = "41defa71646942069b84ec3be8f4aaee90fa3b996587bae52f030e74d38aee9e" %}
 
@@ -9,22 +8,24 @@ package:
   version: '{{ version }}'
 
 source:
-  fn: '{{ name }}-{{ version }}.{{ file_ext }}'
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.{{ file_ext }}
+  fn: '{{ name }}-{{ version }}.tar.gz'
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   '{{ hash_type }}': '{{ hash_value }}'
 
 build:
   number: 0
-  script: python setup.py install --single-version-externally-managed --record=record.txt
+  script: python setup.py install  --single-version-externally-managed --record=record.txt
 
 requirements:
   build:
     - python
     - setuptools
-    - cryptography ==2.0.3
+    - cryptography ==1.8.1
+    - typing
   run:
     - python
-    - cryptography ==2.0.3
+    - cryptography ==1.8.1
+    - typing
 
 test:
   imports:
