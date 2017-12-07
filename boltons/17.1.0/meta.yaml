@@ -1,0 +1,55 @@
+{% set name = "boltons" %}
+{% set version = "17.1.0" %}
+{% set hash_type = "sha256" %}
+{% set hash_value = "b349ad10ec233ecd5e8e4c66b1654a5cffa7b70c2b8164b648c41bf2e266f4e8" %}
+
+package:
+  name: '{{ name|lower }}'
+  version: '{{ version }}'
+
+source:
+  fn: '{{ name }}-{{ version }}.tar.gz'
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  '{{ hash_type }}': '{{ hash_value }}'
+
+build:
+  number: 0
+  script: python setup.py install  --single-version-externally-managed --record=record.txt
+
+requirements:
+  build:
+    - python
+    - setuptools
+  run:
+    - python
+
+test:
+  imports:
+    - boltons
+
+about:
+  home: https://github.com/mahmoud/boltons
+  license: BSD License
+  license_family: BSD
+  license_file: ''
+  summary: When they're not builtins, they're boltons.
+  description: 'Functionality that should be in the standard library. Like
+
+    builtins, but Boltons.
+
+
+    Otherwise known as, "everyone''s util.py," but cleaned up and
+
+    tested.
+
+
+    Contains over 160 BSD-licensed utility types and functions that can be
+
+    used as a package or independently. `Extensively documented on Read
+
+    the Docs <http://boltons.readthedocs.org>`_.'
+  doc_url: ''
+  dev_url: ''
+
+extra:
+  recipe-maintainers: ''

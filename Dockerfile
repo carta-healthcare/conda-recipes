@@ -4,8 +4,8 @@ ENV ANACONDA_USER $upload_user
 
 RUN conda install -y conda-build anaconda-client
 
-ADD . /recipes
+WORKDIR /
 COPY build-entrypoint.sh /build-entrypoint.sh
 COPY build.sh /build.sh
-WORKDIR /
+ADD . /recipes
 ENTRYPOINT ["/build-entrypoint.sh"]
