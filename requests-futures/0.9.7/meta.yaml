@@ -1,0 +1,66 @@
+{% set name = "requests-futures" %}
+{% set version = "0.9.7" %}
+{% set hash_type = "sha256" %}
+{% set hash_value = "a9ca2c3480b6fac29ec5de59c146742e2ab2b60f8c68581766094edb52ea7bad" %}
+
+package:
+  name: '{{ name|lower }}'
+  version: '{{ version }}'
+
+source:
+  fn: '{{ name }}-{{ version }}.tar.gz'
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  '{{ hash_type }}': '{{ hash_value }}'
+
+build:
+  number: 0
+  script: python setup.py install  --single-version-externally-managed --record=record.txt
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - requests >=1.2.0
+#    - futures >=2.1.3
+  run:
+    - python
+    - requests >=1.2.0
+#    - futures >=2.1.3
+
+test:
+  imports:
+    - requests_futures
+
+about:
+  home: https://github.com/ross/requests-futures
+  license: Apache Software License
+  license_family: APACHE
+  license_file: ''
+  summary: Asynchronous Python HTTP for Humans.
+  description: "Asynchronous Python HTTP Requests for Humans\n============================================\n\n.. image:: https://travis-ci.org/ross/requests-futures.png?branch=master\n        :target: https://travis-ci.org/ross/requests-futures\n\
+    \nSmall add-on for the python requests_ http library. Makes use of python 3.2's\n`concurrent.futures`_ or the backport_ for prior versions of python.\n\nThe additional API and changes are minimal and\
+    \ strives to avoid surprises.\n\nThe following synchronous code:\n\n.. code-block:: python\n\n    from requests import Session\n\n    session = Session()\n    # first requests starts and blocks until\
+    \ finished\n    response_one = session.get('http://httpbin.org/get')\n    # second request starts once first is finished\n    response_two = session.get('http://httpbin.org/get?foo=bar')\n    # both\
+    \ requests are complete\n    print('response one status: {0}'.format(response_one.status_code))\n    print(response_one.content)\n    print('response two status: {0}'.format(response_two.status_code))\n\
+    \    print(response_two.content)\n\nCan be translated to make use of futures, and thus be asynchronous by creating\na FuturesSession and catching the returned Future in place of Response. The\nResponse\
+    \ can be retrieved by calling the result method on the Future:\n\n.. code-block:: python\n\n    from requests_futures.sessions import FuturesSession\n\n    session = FuturesSession()\n    # first request\
+    \ is started in background\n    future_one = session.get('http://httpbin.org/get')\n    # second requests is started immediately \n    future_two = session.get('http://httpbin.org/get?foo=bar')\n  \
+    \  # wait for the first request to complete, if it hasn't already\n    response_one = future_one.result()\n    print('response one status: {0}'.format(response_one.status_code))\n    print(response_one.content)\n\
+    \    # wait for the second request to complete, if it hasn't already\n    response_two = future_two.result()\n    print('response two status: {0}'.format(response_two.status_code))\n    print(response_two.content)\n\
+    \nBy default a ThreadPoolExecutor is created with 2 workers. If you would like to\nadjust that value or share a executor across multiple sessions you can provide\none to the FuturesSession constructor.\n\
+    \n.. code-block:: python\n\n    from concurrent.futures import ThreadPoolExecutor\n    from requests_futures.sessions import FuturesSession\n\n    session = FuturesSession(executor=ThreadPoolExecutor(max_workers=10))\n\
+    \    # ...\n\nAs a shortcut in case of just increasing workers number you can pass\n`max_workers` straight to the `FuturesSession` constructor:\n\n.. code-block:: python\n\n    from requests_futures.sessions\
+    \ import FuturesSession\n    session = FuturesSession(max_workers=10)\n\nFutureSession will use an existing session object if supplied:\n\n.. code-block:: python\n\n    from requests import session\n\
+    \    from requests_futures.sessions import FuturesSession\n    my_session = session()\n    future_session = FuturesSession(session=my_session)\n\nThat's it. The api of requests.Session is preserved\
+    \ without any modifications\nbeyond returning a Future rather than Response. As with all futures exceptions\nare shifted (thrown) to the future.result() call so try/except blocks should be\nmoved there.\n\
+    \nWorking in the Background\n=========================\n\nThere is one additional parameter to the various request functions,\nbackground_callback, which allows you to work with the Response objects\
+    \ in the\nbackground thread. This can be useful for shifting work out of the foreground,\nfor a simple example take json parsing.\n\n.. code-block:: python\n\n    from pprint import pprint\n    from\
+    \ requests_futures.sessions import FuturesSession\n\n    session = FuturesSession()\n\n    def bg_cb(sess, resp):\n        # parse the json storing the result on the response object\n        resp.data\
+    \ = resp.json()\n\n    future = session.get('http://httpbin.org/get', background_callback=bg_cb)\n    # do some other stuff, send some more requests while this one works\n    response = future.result()\n\
+    \    print('response status {0}'.format(response.status_code))\n    # data will have been attached to the response object in the background\n    pprint(response.data)\n\n\nInstallation\n============\n\
+    \n    pip install requests-futures\n\n.. _`requests`: https://github.com/kennethreitz/requests\n.. _`concurrent.futures`: http://docs.python.org/dev/library/concurrent.futures.html\n.. _backport: https://pypi.python.org/pypi/futures"
+  doc_url: ''
+  dev_url: ''
+
+extra:
+  recipe-maintainers: ''
