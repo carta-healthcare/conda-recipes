@@ -1,62 +1,84 @@
+{% set name = "ipdb" %}
+{% set version = "0.10.3" %}
+{% set hash_type = "sha256" %}
+{% set hash_value = "9ea256b4280fbe12840fb9dfc3ce498c6c6de03352eca293e4400b0dfbed2b28" %}
+
 package:
-  name: ipdb
-  version: !!str 0.8
+  name: '{{ name|lower }}'
+  version: '{{ version }}'
 
 source:
-  fn: ipdb-0.8.zip
-  url: https://pypi.python.org/packages/source/i/ipdb/ipdb-0.8.zip
-  md5: 96dca0712efa01aa5eaf6b22071dd3ed
-#  patches:
-   # List any patch files here
-   # - fix.patch
+  fn: '{{ name }}-{{ version }}.tar.gz'
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  '{{ hash_type }}': '{{ hash_value }}'
 
 build:
-  #preserve_egg_dir: True
+  number: 0
   entry_points:
-    # Put any entry points (scripts to be generated automatically) here. The
-    # syntax is module:function.  For example
-    #
-    # - ipdb = ipdb:main
-    #
-    # Would create an entry point called ipdb that calls ipdb.main()
-
     - ipdb = ipdb.__main__:main
-
-  # If this is a new build for the same version, increment the build
-  # number. If you do not include this key, it defaults to 0.
-  # number: 1
+  script: python setup.py install  --single-version-externally-managed --record=record.txt
 
 requirements:
   build:
     - python
     - setuptools
-    - ipython >=0.10
-
+    - ipython
   run:
     - python
-    - ipython >=0.10
+    - setuptools
+    - ipython
 
 test:
-  # Python imports
   imports:
     - ipdb
 
-  commands:
-    # You can put test commands to be run here.  Use this to test that the
-    # entry points work.
-
-  # You can also put a file called run_test.py in the recipe that will be run
-  # at test time.
-
-  # requires:
-    # Put any additional test requirements here.  For example
-    # - nose
-
 about:
   home: https://github.com/gotcha/ipdb
-  license: GPL
-  summary: 'IPython-enabled pdb'
+  license: BSD
+  license_family: BSD
+  license_file: ''
+  summary: IPython-enabled pdb
+  description: "IPython `pdb`\n=============\n\n.. image:: https://travis-ci.org/gotcha/ipdb.png?branch=master\n  :target: https://travis-ci.org/gotcha/ipdb\n\nUse\n---\n\nipdb exports functions to access\
+    \ the IPython_ debugger, which features\ntab completion, syntax highlighting, better tracebacks, better introspection\nwith the same interface as the `pdb` module.\n\nExample usage:\n\n.. code-block::\
+    \ python\n\n        import ipdb\n        ipdb.set_trace()\n        ipdb.set_trace(context=5)  # will show five lines of code\n                                   # instead of the default three lines\n\
+    \        ipdb.pm()\n        ipdb.run('x[0] = 3')\n        result = ipdb.runcall(function, arg0, arg1, kwarg='foo')\n        result = ipdb.runeval('f(1,2) - 3')\n\nThe post-mortem function, ``ipdb.pm()``,\
+    \ is equivalent to the magic function\n``%debug``.\n\n.. _IPython: http://ipython.org\n\nIf you install ``ipdb`` with a tool which supports ``setuptools`` entry points,\nan ``ipdb`` script is made for\
+    \ you. You can use it to debug your python 2 scripts like\n\n::\n\n        $ bin/ipdb mymodule.py\n\nAnd for python 3\n\n::\n\n        $ bin/ipdb3 mymodule.py\n\nAlternatively with Python 2.7 only,\
+    \ you can also use\n\n::\n\n        $ python -m ipdb mymodule.py\n\nYou can also enclose code with the ``with`` statement to launch ipdb if an exception is raised:\n\n.. code-block:: python\n\n    \
+    \    from ipdb import launch_ipdb_on_exception\n\n        with launch_ipdb_on_exception():\n            [...]\n\n.. warning::\n   Context managers were introduced in Python 2.5.\n   Adding a context\
+    \ manager implies dropping Python 2.4 support.\n   Use ``ipdb==0.6`` with 2.4.\n\n.. warning::\n   Using ``from future import print_function`` for Python 3 compat implies dropping Python 2.5 support.\n\
+    \   Use ``ipdb<=0.8`` with 2.5.\n\nIssues with ``stdout``\n----------------------\n\nSome tools, like ``nose`` fiddle with ``stdout``.\n\nUntil ``ipdb==0.9.4``, we tried to guess when we should also\n\
+    fiddle with ``stdout`` to support those tools.\nHowever, all strategies tried until 0.9.4 have proven brittle.\n\nIf you use ``nose`` or another tool that fiddles with ``stdout``, you should\nexplicitely\
+    \ ask for ``stdout`` fiddling by using ``ipdb`` like this\n\n.. code-block:: python\n\n        import ipdb\n        ipdb.sset_trace()\n        ipdb.spm()\n\n        from ipdb import slaunch_ipdb_on_exception\n\
+    \        with slaunch_ipdb_on_exception():\n            [...]\n\n\nDevelopment\n-----------\n\n``ipdb`` source code and tracker are at https://github.com/gotcha/ipdb.\n\nPull requests should take care\
+    \ of updating the changelog ``HISTORY.txt``.\n\nThird-party support\n-------------------\n\nProducts.PDBDebugMode\n+++++++++++++++++++++\n\nZope2 Products.PDBDebugMode_ uses ``ipdb``, if available,\
+    \ in place of ``pdb``.\n\n.. _Products.PDBDebugMode: http://pypi.python.org/pypi/Products.PDBDebugMode\n\niw.debug\n++++++++\n\niw.debug_ allows you to trigger an ``ipdb`` debugger on any published\
+    \ object\nof a Zope2 application.\n\n.. _iw.debug: http://pypi.python.org/pypi/iw.debug\n\nipdbplugin\n++++++++++\n\nipdbplugin_ is a nose_ test runner plugin that also uses the IPython debugger\ninstead\
+    \ of ``pdb``. (It does not depend on ``ipdb`` anymore).\n\n.. _ipdbplugin: http://pypi.python.org/pypi/ipdbplugin\n.. _nose: http://readthedocs.org/docs/nose\n\n\nChangelog\n=========\n\n0.10.3 (2017-04-22)\n\
+    -------------------\n\n- For users using python 2.6, do not install IPython >= 2.0.0.\n  And for users using python 2.7, do not install IPython >= 6.0.0.\n  [vphilippon]\n- Drop support for python 3.2.\n\
+    \  [vphilippon]\n- Command line usage consistent with pdb - Add argument commands\n  [zvodd]\n\n\n0.10.2 (2017-01-25)\n-------------------\n\n- Ask IPython which debugger class to use.\n  Closes https://github.com/gotcha/ipdb/issues/105\n\
+    \  [gnebehay, JBKahn] \n\n- ipdb.set_trace() does not ignore context arg anymore.\n  Closes https://github.com/gotcha/ipdb/issues/93.\n  [gnebehay, Garrett-R]\n\n\n0.10.1 (2016-06-14)\n-------------------\n\
+    \n- Support IPython 5.0.\n  [ngoldbaum]\n\n\n0.10.0 (2016-04-29)\n-------------------\n\n- Stop trying to magically guess when stdout needs to be captured.\n  Like needed by `nose`.\n  Rather, provide\
+    \ a set of function that can be called explicitely when needed.\n  [gotcha]\n\n- drop support of IPython before 0.10.2\n\n\n0.9.4 (2016-04-29)\n------------------\n\n- Fix Restart error when using `python\
+    \ -m ipdb`\n  Closes https://github.com/gotcha/ipdb/issues/93.\n  [gotcha]\n\n\n0.9.3 (2016-04-15)\n------------------\n\n- Don't require users to pass a traceback to post_mortem.\n  [Wilfred]\n\n\n\
+    0.9.2 (2016-04-15)\n------------------\n\n- Closes https://github.com/gotcha/ipdb/issues/93.\n  [gotcha]\n\n\n0.9.1 (2016-04-12)\n------------------\n\n- Reset ``sys.modules['__main__']`` to original\
+    \ value.\n  Closes https://github.com/gotcha/ipdb/issues/85\n  [gotcha]\n\n- Fix support of IPython versions 0.x\n  [asivokon]\n\n\n0.9.0 (2016-02-22)\n------------------\n\n- Switch to revised BSD\
+    \ license (with approval of all contributors).\n  Closes https://github.com/gotcha/ipdb/issues/68\n  [lebedov, gotcha]\n\n0.8.3 (2016-02-17)\n------------------\n\n- Don't pass sys.argv to IPython for\
+    \ configuration.\n  [emulbreh]\n\n\n0.8.2 (2016-02-15)\n------------------\n\n- Fix lexical comparison for version numbers.\n  [sas23]\n\n- Allow configuring how many lines of code context are displayed\n\
+    \  by `set_trace`\n  [JamshedVesuna]\n\n- If an instance of IPython is already running its configuration will be\n  loaded.\n  [IxDay]\n\n\n0.8.1 (2015-06-03)\n------------------\n\n- Make Nose support\
+    \ less invasive.\n  Closes https://github.com/gotcha/ipdb/issues/52\n  Closes https://github.com/gotcha/ipdb/issues/31\n  [blink1073, gotcha]\n\n- Fix for post_mortem in context manager.\n  Closes https://github.com/gotcha/ipdb/issues/20\n\
+    \  [omergertel]\n\n\n0.8 (2013-09-19)\n----------------\n\n- More Python 3 compatibility; implies dropping Python 2.5 support.\n  Closes https://github.com/gotcha/ipdb/issues/37\n  [gotcha]\n\n\n0.7.1\
+    \ (2013-09-19)\n------------------\n\n- IPython 1.0 compatibility.\n  Closes https://github.com/gotcha/ipdb/issues/44\n  [pgularski]\n\n- Index into version_info in setup.py for Python 2.6 compatibility.\n\
+    \  [kynan]\n\n- Add Travis CI configuration.\n  [kynan]\n\n0.7 (2012-07-06)\n----------------\n\n- Add ``launch_ipdb_on_exception`` context manager. Implies dropping Python 2.4 support.\n  [Psycojoker]\n\
+    \n- Wrap sys.excepthook only once.\n  [marciomazza]\n\n- Add GPL file and refer in headers.\n  [stan3]\n\n- Python 3 support.\n  [Piet Delport]\n\n- Basic tests.\n  [msabramo]\n\n- Added the functions\
+    \ ``runcall``, ``runeval`` and ``run``.\n  [dimasad]\n\n\n0.6.1 (2011-10-17)\n------------------\n\n- State dependency on IPython later or equal to 0.10.\n  [gotcha]\n\n\n0.6 (2011-09-01)\n----------------\n\
+    \n- Add setuptools ``console_scripts`` entry point.\n  [akrito, gotcha] \n\n- Nose support.\n  Closes https://github.com/gotcha/ipdb/issues/8\n  [akaihola, gotcha]\n\n\n0.5 (2011-08-05)\n----------------\n\
+    \n- IPython 0.11 support.\n  [lebedov]\n\n\n0.4 (2011-06-13)\n----------------\n\n- When used from IPython, use its colors.\n  Closes https://github.com/gotcha/ipdb/issues/1\n  [gotcha]\n\n- Fixed errors\
+    \ when exiting with \"q\". \n  [gotcha]\n\n- Allow use of ``python -m ipdb mymodule.py``.\n  Python 2.7 only. \n  Closes https://github.com/gotcha/ipdb/issues/3 \n  [gotcha]\n\n- Fixed post_mortem when\
+    \ the traceback is None.\n  [maurits]\n\n\n0.3 (2011-01-16)\n----------------\n\n- Add ``post_mortem()`` for ``Products.PDBDebugMode`` support.\n  [Jean Jordaan]\n\n- Moved to github.com.\n\n\n0.2 (2010-10-20)\n\
+    ----------------\n\n- Added ``pm()``.\n  [Paulo Benedict Ang]\n\n\n0.1 (2010-04-26)\n----------------\n\n- First \"non dev\" release."
+  doc_url: ''
+  dev_url: ''
 
-# See
-# http://docs.continuum.io/conda/build.html for
-# more information about meta.yaml
+extra:
+  recipe-maintainers: ''
