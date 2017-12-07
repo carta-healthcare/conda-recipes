@@ -1,0 +1,53 @@
+{% set name = "flasgger" %}
+{% set version = "0.8.0" %}
+{% set hash_type = "sha256" %}
+{% set hash_value = "158ded9a2f0022229cde93b8b47238abe9510f196749901b27ea060e6f57ceee" %}
+
+package:
+  name: '{{ name|lower }}'
+  version: '{{ version }}'
+
+source:
+  fn: '{{ name }}-{{ version }}.tar.gz'
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  '{{ hash_type }}': '{{ hash_value }}'
+
+build:
+  number: 0
+  script: python setup.py install  --single-version-externally-managed --record=record.txt
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - flask >=0.10
+    - pyyaml >=3.0
+    - jsonschema >=2.5.1
+    - mistune
+    - six >=1.10.0
+  run:
+    - python
+    - flask >=0.10
+    - pyyaml >=3.0
+    - jsonschema >=2.5.1
+    - mistune
+    - six >=1.10.0
+
+test:
+  imports:
+    - demo_app
+    - examples
+    - flasgger
+
+about:
+  home: https://github.com/rochacbruno/flasgger/
+  license: MIT
+  license_family: MIT
+  license_file: ''
+  summary: Extract swagger specs from your flask project
+  description: "# Flasgger\n## Easy Swagger UI for your Flask API"
+  doc_url: ''
+  dev_url: ''
+
+extra:
+  recipe-maintainers: ''
