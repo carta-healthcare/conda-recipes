@@ -1,0 +1,67 @@
+{% set name = "vmprof" %}
+{% set version = "0.4.10" %}
+{% set hash_type = "sha256" %}
+{% set hash_value = "0a7f73812716a79cd0a034163244f8f39375a65413228ebab297485af1c8c51f" %}
+
+package:
+  name: '{{ name|lower }}'
+  version: '{{ version }}'
+
+source:
+  fn: '{{ name }}-{{ version }}.tar.gz'
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  '{{ hash_type }}': '{{ hash_value }}'
+
+build:
+  number: 0
+  entry_points:
+    - vmprofshow = vmprof.show:main
+  script: python setup.py install  --single-version-externally-managed --record=record.txt
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - requests
+    - six
+    - pytz
+    - colorama
+    - libunwind # [unix]
+#    - backports.shutil_which # Don't need in python 3, which is the only python this recipe supports
+  run:
+    - python
+    - requests
+    - six
+    - pytz
+    - colorama
+    - libunwind # [unix]
+#    - backports.shutil_which # Don't need in python 3, which is the only python this recipe supports
+
+test:
+  imports:
+    - jitlog
+    - vmprof
+    - vmshare
+  commands:
+    - vmprofshow --help
+  requires:
+    - cffi
+    - hypothesis
+    - pytest
+
+about:
+  home: https://github.com/vmprof/vmprof-python
+  license: MIT License
+  license_family: MIT
+  license_file: ''
+  summary: Python's vmprof client
+  description: 'See https://vmprof.readthedocs.org/
+
+
+
+    '
+  doc_url: ''
+  dev_url: ''
+
+extra:
+  recipe-maintainers: ''

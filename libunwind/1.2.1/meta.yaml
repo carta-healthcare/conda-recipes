@@ -1,0 +1,20 @@
+package:
+    name: libunwind
+    version: "1.2.1"
+
+source:
+    fn: libunwind-1.2.1.tar.gz
+    url: http://download.savannah.nongnu.org/releases/libunwind/libunwind-1.2.1.tar.gz
+    md5: 06ba9e60d92fd6f55cd9dadb084df19e
+
+#requirements:
+#    build:
+#        - libgpg-error 1.27
+
+# Note: tests are run when building the package, they are not accessible
+# in the installed package.
+
+about:
+    home: https://gnupg.org/software/libgcrypt/index.html
+    license: GNU Lesser General Public License (LGPLv2.1+)
+    summary: 'libunwind'

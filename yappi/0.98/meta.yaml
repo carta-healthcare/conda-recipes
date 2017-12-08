@@ -1,0 +1,53 @@
+{% set name = "yappi" %}
+{% set version = "0.98" %}
+{% set hash_type = "sha256" %}
+{% set hash_value = "5f657129e1b9b952379ffbc009357d0dcdb58c50f3bfe88ffbb992e4b27b263c" %}
+
+package:
+  name: '{{ name|lower }}'
+  version: '{{ version }}'
+
+source:
+  fn: '{{ name }}-{{ version }}.tar.gz'
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  '{{ hash_type }}': '{{ hash_value }}'
+
+build:
+  number: 0
+  entry_points:
+    - yappi = yappi:main
+  script: python setup.py install  --single-version-externally-managed --record=record.txt
+
+requirements:
+  build:
+    - python
+    - setuptools
+  run:
+    - python
+
+test:
+  commands:
+    - yappi --help
+
+about:
+  home: http://yappi.googlecode.com/
+  license: MIT License
+  license_family: MIT
+  license_file: ''
+  summary: Yet Another Python Profiler
+  description: "Yappi\r\n===================\r\n\r\n[![Build Status](https://drone.io/bitbucket.org/sumerc/yappi/status.png)](https://drone.io/bitbucket.org/sumerc/yappi/latest)\r\n\r\nMotivation:\r\n===================\r\
+    \nCPython standard distribution is coming with three profilers. cProfile, Profile and hotshot. \r\ncProfile module is implemented as a C module based on lsprof, Profile is in pure Python and the \r\n\
+    hotshot can be seen as a small subset of a cProfile. The motivation to implement a new profiler is\r\nthat all of these profilers lacks the support of multi-threaded programs. If you want to profile\
+    \ a \r\nmulti-threaded application, you must give an entry point to these profilers and then maybe merge \r\nthe outputs. None of these profilers is designed to work on long-running multi-threaded application.\
+    \ \r\nWhile implementing a game server, it turns out that is is impossible to profile an application \r\nretrieve the statistics then stop and then start later on on the fly(without affecting the profiled\r\
+    \napplication). With the experience of implementing a game server in Python, we have identified most \r\nof the problems, tricky parts regarding profiler usage and so, we have come up with simple but\
+    \ \r\npowerful requirements.\r\n\r\nFeatures:\r\n===================\r\n* Ability to analyze per-thread information. (*new in 0.94*)\r\n* Ability to hook underlying threading model events/properties.\
+    \ (*new in 0.92*)\r\n* Decorator to profile individual functions easily. (*new in 0.92*)\r\n* Profiler results can be saved in callgrind and pstat formats. (new in 0.82) \r\n* Profiler results can be\
+    \ merged from different sessions on-the-fly. (new in 0.82)\r\n* Profiler results can be easily converted to pstats. (new in 0.82) \r\n* Supports profiling per-thread CPU time. See http://en.wikipedia.org/wiki/CPU_time\
+    \ for details. (new in 0.62)\r\n* Profiling of multithreaded Python applications transparently. \r\n* Profiler can be started from any thread at any time.\r\n* Ability to get statistics at any time\
+    \ without even stopping the profiler.\r\n* Various flags to arrange/sort profiler results.\r\n  \r\nLimitations:\r\n===================\r\n* Latest version of Yappi supports Python 2.6.x <= x <= Python.3.4"
+  doc_url: ''
+  dev_url: ''
+
+extra:
+  recipe-maintainers: ''
