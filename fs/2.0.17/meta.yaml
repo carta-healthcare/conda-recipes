@@ -1,0 +1,76 @@
+{% set name = "fs" %}
+{% set version = "2.0.17" %}
+{% set hash_type = "sha256" %}
+{% set hash_value = "020685e946eebb3819d5e1c01b78a66015dd5a0c37bdb2d173c43cdfb3a90d63" %}
+
+package:
+  name: '{{ name|lower }}'
+  version: '{{ version }}'
+
+source:
+  fn: '{{ name }}-{{ version }}.tar.gz'
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  '{{ hash_type }}': '{{ hash_value }}'
+
+build:
+  number: 0
+  script: python setup.py install  --single-version-externally-managed --record=record.txt
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - appdirs >=1.4.3
+    - pytz
+    - setuptools
+    - six >=1.10
+  run:
+    - python
+    - setuptools
+    - appdirs >=1.4.3
+    - pytz
+    - setuptools
+    - six >=1.10
+
+test:
+  imports:
+    - fs
+    - fs.opener
+  requires:
+    - appdirs
+    - mock
+    - pyftpdlib
+    - pytz
+
+about:
+  home: https://github.com/PyFilesystem/pyfilesystem2
+  license: MIT License
+  license_family: MIT
+  license_file: ''
+  summary: Python's filesystem abstraction layer
+  description: "PyFilesystem2\n=============\n\nPython's Filesystem abstraction layer.\n\n|PyPI version| |PyPI| |Build Status| |Coverage Status| |Codacy Badge|\n|Code Health|\n\nDocumentation\n-------------\n\
+    \n-  `Wiki <https://www.pyfilesystem.org>`__\n-  `API\n   Documentation <https://pyfilesystem2.readthedocs.io/en/latest/>`__\n-  `GitHub Repository <https://github.com/PyFilesystem/pyfilesystem2>`__\n\
+      -  `Blog <https://www.willmcgugan.com/tag/fs/>`__\n\nIntroduction\n------------\n\nThink of PyFilesystem's ``FS`` objects as the next logical step to\nPython's ``file`` objects. In the same way that\
+    \ file objects abstract a\nsingle file, FS objects abstract an entire filesystem.\n\nLet's look at a simple piece of code as an example. The following\nfunction uses the PyFilesystem API to count the\
+    \ number of non-blank\nlines of Python code in a directory. It works *recursively*, so it will\nfind ``.py`` files in all sub-directories.\n\n.. code:: python\n\n    def count_python_loc(fs):\n    \
+    \    \"\"\"Count non-blank lines of Python code.\"\"\"\n        count = 0\n        for path in fs.walk.files(filter=['*.py']):\n            with fs.open(path) as python_file:\n                count\
+    \ += sum(1 for line in python_file if line.strip())\n        return count\n\nWe can call ``count_python_loc`` as follows:\n\n.. code:: python\n\n    from fs import open_fs\n    projects_fs = open_fs('~/projects')\n\
+    \    print(count_python_loc(projects_fs))\n\nThe line ``project_fs = open_fs('~/projects')`` opens an FS object that\nmaps to the ``projects`` directory in your home folder. That object is\nused by\
+    \ ``count_python_loc`` when counting lines of code.\n\nTo count the lines of Python code in a *zip file*, we can make the\nfollowing change:\n\n.. code:: python\n\n    projects_fs = open_fs('zip://projects.zip')\n\
+    \nOr to count the Python lines on an FTP server:\n\n.. code:: python\n\n    projects_fs = open_fs('ftp://ftp.example.org/projects')\n\nNo changes to ``count_python_loc`` are necessary, because PyFileystem\n\
+    provides a simple consistent interface to anything that resembles a\ncollection of files and directories. Essentially, it allows you to write\ncode that is independent of where and how the files are\
+    \ physically\nstored.\n\nContrast that with a version that purely uses the standard library:\n\n.. code:: python\n\n    def count_py_loc(path):\n        count = 0\n        for root, dirs, files in os.walk(path):\n\
+    \            for name in files:\n                if name.endswith('.py'):\n                    with open(os.path.join(root, name), 'rt') as python_file:\n                        count += sum(1 for line\
+    \ in python_file if line.strip())\n\nThis version is similar to the PyFilesystem code above, but would only\nwork with the OS filesystem. Any other filesystem would require an\nentirely different API,\
+    \ and you would likely have to re-implement the\ndirectory walking functionality of ``os.walk``.\n\nCredits\n-------\n\n-  `Will McGugan <https://github.com/willmcgugan>`__\n-  `Martin Larralde <https://github.com/althonos>`__\
+    \ for TarFS\n-  `Giampaolo <https://github.com/gpcimino>`__ for ``copy_if_newer`` and\n   ftp fixes.\n\nPyFilesystem2 owes a massive debt of gratitude to the following\ndevelopers who contributed code\
+    \ and ideas to the original version.\n\n-  Ryan Kelly\n-  Andrew Scheller\n-  Ben Timby\n\nApologies if I missed anyone, feel free to prompt me if your name is\nmissing here.\n\n.. |PyPI version| image::\
+    \ https://badge.fury.io/py/fs.svg\n   :target: https://badge.fury.io/py/fs\n.. |PyPI| image:: https://img.shields.io/pypi/pyversions/fs.svg\n   :target: https://pypi.python.org/pypi/fs/\n.. |Build Status|\
+    \ image:: https://travis-ci.org/PyFilesystem/pyfilesystem2.svg?branch=master\n   :target: https://travis-ci.org/PyFilesystem/pyfilesystem2\n.. |Coverage Status| image:: https://coveralls.io/repos/github/PyFilesystem/pyfilesystem2/badge.svg\n\
+    \   :target: https://coveralls.io/github/PyFilesystem/pyfilesystem2\n.. |Codacy Badge| image:: https://api.codacy.com/project/badge/Grade/30ad6445427349218425d93886ade9ee\n   :target: https://www.codacy.com/app/will-mcgugan/pyfilesystem2?utm_source=github.com&utm_medium=referral&utm_content=PyFilesystem/pyfilesystem2&utm_campaign=Badge_Grade\n\
+    .. |Code Health| image:: https://landscape.io/github/PyFilesystem/pyfilesystem2/master/landscape.svg?style=flat\n   :target: https://landscape.io/github/PyFilesystem/pyfilesystem2/master\n"
+  doc_url: ''
+  dev_url: ''
+
+extra:
+  recipe-maintainers: ''
