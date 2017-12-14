@@ -1,10 +1,10 @@
 # Credits to jeanconn for the package https://binstar.org/jeanconn/fftw
 package:
     name: libxmlsec1
-    version: "1.2.20"
+    version: "1.2.24"
 
 source:
-    fn: xmlsec1-1.2.20.tar.gz
+    fn: xmlsec1-1.2.24.tar.gz
     url: http://www.aleksey.com/xmlsec/download/xmlsec1-1.2.24.tar.gz
     md5: 2f4944356b69ea14c18814d9248fbbd8
 
@@ -13,7 +13,7 @@ requirements:
         - libxml2
         - libgcrypt
         - openssl
-        - libiconv
+        - libiconv=1.15
         - libgpg-error
 
 # Note: tests are run when building the package, they are not accessible
