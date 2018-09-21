@@ -28,7 +28,7 @@ source:
 
 requirements:
   build:
-    - python
+    - python {{ python }} 
     - setuptools
     - isodate >=0.5.0
     - xmlsec >=0.6.0
@@ -36,7 +36,7 @@ requirements:
     - libxmlsec1
 
   run:
-    - python
+    - python {{ python }} 
     - isodate >=0.5.0
     - xmlsec >=0.6.0
     - defusedxml ==0.5.0
@@ -47,6 +47,7 @@ test:
   imports:
     - onelogin
     - onelogin.saml2
+    - onelogin.saml2.auth
 
   # commands:
     # You can put test commands to be run here.  Use this to test that the

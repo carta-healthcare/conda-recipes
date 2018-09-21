@@ -15,6 +15,12 @@ requirements:
         - openssl
         - libiconv
         - libgpg-error
+    run:
+        - libxml2
+        - libgcrypt
+        - openssl
+        - libiconv
+        - libgpg-error
 
 # Note: tests are run when building the package, they are not accessible
 # in the installed package.

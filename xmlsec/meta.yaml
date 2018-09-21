@@ -28,21 +28,22 @@ source:
 
 requirements:
   build:
-    - python >=3.5
+    - python {{ python }}
     - setuptools
     - pkgconfig
     - lxml >=3.0
     - libxmlsec1 1.2.20
 
   run:
-    - python >=3.5
+    - python
     - pkgconfig
     - lxml >=3.0
     - libxmlsec1 1.2.20
 
-# test:
+test:
   # Python imports
-  # imports:
+  imports:
+    - xmlsec
 
   # commands:
     # You can put test commands to be run here.  Use this to test that the
